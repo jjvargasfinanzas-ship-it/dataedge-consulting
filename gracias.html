@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gracias por tu compra · Data Edge</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #1c2b44;
+            --accent-blue: #4a8de8;
+            --gold: #d4a84e;
+            --light-bg: #f0f4fb;
+            --text-dark: #1a2235;
+            --text-gray: #6b7f9e;
+            --border-light: #dde5f0;
+        }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: var(--light-bg); color: var(--text-dark); line-height: 1.6; }
+        header { background: var(--bg-dark); padding: 1.1rem 1rem; }
+        header img { height: 32px; width: auto; display: block; }
+        main { max-width: 640px; margin: 0 auto; padding: 2.5rem 1rem 4rem; }
+        .card { background: #fff; border: 1px solid var(--border-light); border-radius: 14px; padding: 2rem 1.5rem; }
+        .check { width: 56px; height: 56px; border-radius: 50%; background: #e6f6ef; color: #0ea572; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 1.9rem; line-height: 1.2; margin: 0 0 .5rem; }
+        p { margin: .5rem 0; }
+        .muted { color: var(--text-gray); }
+        ol { padding-left: 1.2rem; margin: 1.25rem 0; }
+        li { margin-bottom: .5rem; }
+        label { display: block; font-weight: 600; font-size: .9rem; margin: 1.25rem 0 .4rem; }
+        select { width: 100%; padding: .75rem; border: 1px solid var(--border-light); border-radius: 9px; font: inherit; background: #fff; }
+        .btn { display: block; width: 100%; text-align: center; text-decoration: none; background: var(--accent-blue); color: #fff; font-weight: 700; padding: .9rem 1rem; border-radius: 9px; margin-top: 1.25rem; min-height: 44px; }
+        .btn:hover { background: #3a7bd5; }
+        .link { color: var(--accent-blue); }
+        .small { font-size: .85rem; }
+        footer { text-align: center; color: var(--text-gray); font-size: .85rem; padding: 0 1rem 2rem; }
+    </style>
+</head>
+<body>
+<header><a href="/" aria-label="Data Edge, ir al inicio"><img src="/logo-data-edge.svg" alt="Data Edge"></a></header>
+<main>
+    <div class="card">
+        <div class="check" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h1>¡Gracias por tu compra!</h1>
+        <p class="muted">Si tu pago fue aprobado, falta un último paso para recibir tu plantilla.</p>
+
+        <ol>
+            <li>Elige la plantilla que compraste.</li>
+            <li>Pulsa el botón: se abrirá un correo dirigido a nosotros.</li>
+            <li>Adjunta la captura o el PDF del comprobante de Wompi y envíalo.</li>
+        </ol>
+
+        <label for="plantilla">Plantilla que compraste</label>
+        <select id="plantilla">
+            <option>Valoración de Empresas DCF</option>
+            <option>Presupuesto Anual + P&amp;L</option>
+            <option>Análisis VPN/TIR</option>
+            <option>Dashboard KPIs Gerenciales</option>
+        </select>
+
+        <a id="enviar" class="btn" href="#">Enviar comprobante</a>
+
+        <p class="small muted" style="margin-top:1.25rem;">Te enviamos la plantilla al correo en máximo 24 horas hábiles. Si el botón no abre tu correo, escríbenos a <a class="link" href="mailto:info@DataEdgeConsulting.onmicrosoft.com">info@DataEdgeConsulting.onmicrosoft.com</a> con el comprobante y el nombre de la plantilla.</p>
+        <p class="small muted">Si tu pago fue rechazado o quedó pendiente, no se realizó ningún cobro definitivo. Puedes intentarlo de nuevo desde la <a class="link" href="/">página principal</a>.</p>
+    </div>
+</main>
+<footer>© 2026 Data Edge · <a class="link" href="/privacidad.html">Política de privacidad</a></footer>
+<script>
+    var EMAIL = 'info@DataEdgeConsulting.onmicrosoft.com';
+    var sel = document.getElementById('plantilla');
+    var btn = document.getElementById('enviar');
+    try {
+        var previa = sessionStorage.getItem('dec_pro') || localStorage.getItem('dec_pro');
+        if (previa) {
+            for (var i = 0; i < sel.options.length; i++) {
+                if (sel.options[i].text === previa) { sel.selectedIndex = i; break; }
+            }
+        }
+    } catch (e) {}
+    function actualizar() {
+        var nombre = sel.options[sel.selectedIndex].text;
+        btn.href = 'mailto:' + EMAIL +
+            '?subject=' + encodeURIComponent('Comprobante de pago - Plantilla PRO: ' + nombre) +
+            '&body=' + encodeURIComponent('Hola, adjunto el comprobante de pago de la plantilla PRO "' + nombre + '".\n\nNombre:\nCorreo donde quiero recibirla:\n\n(Recuerda adjuntar la captura o el PDF del comprobante de Wompi.)');
+    }
+    sel.addEventListener('change', actualizar);
+    actualizar();
+</script>
+</body>
+</html>
