@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gracias por tu compra · Data Edge</title>
     <meta name="robots" content="noindex">
+    <script src="/meta-pixel.js"></script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,6 +92,16 @@
     }
     sel.addEventListener('change', actualizar);
     actualizar();
+
+    // Compra para Meta: solo si se llegó desde Wompi (trae ?id= de la transacción) y una sola vez por transacción.
+    try {
+        var tx = new URLSearchParams(window.location.search).get('id');
+        if (tx && !localStorage.getItem('dec_px_' + tx)) {
+            var precio = Number(localStorage.getItem('dec_pro_precio')) || 80000;
+            dePixel('Purchase', { content_name: sel.options[sel.selectedIndex].text, value: precio, currency: 'COP', num_items: 1 });
+            localStorage.setItem('dec_px_' + tx, '1');
+        }
+    } catch (e) {}
 </script>
 </body>
 </html>
