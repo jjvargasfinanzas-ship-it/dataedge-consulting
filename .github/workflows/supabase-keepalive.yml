@@ -1,0 +1,26 @@
+# Mantiene activo el proyecto de Supabase (plan gratis).
+# Supabase pausa los proyectos gratuitos tras 7 días sin solicitudes.
+# Esta tarea hace una consulta de solo lectura cada 3 días.
+name: Supabase keep-alive
+
+on:
+  schedule:
+    - cron: "17 13 */3 * *"   # cada 3 días, 8:17 a. m. hora Colombia
+  workflow_dispatch: {}        # permite ejecutarla a mano desde la pestaña Actions
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Consultar Supabase
+        env:
+          SUPABASE_URL: https://fammwgjikfvfkydrhjfq.supabase.co
+          # Clave pública (anon), la misma que ya usa index.html. No es la clave secreta.
+          SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhbW13Z2ppa2Z2Zmt5ZHJoamZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxNzQ0MDIsImV4cCI6MjA5MTc1MDQwMn0.-ryWEneBxj9GBcjnb0KLgUT8cPOjcgu-tbSQE-BOAg8
+        run: |
+          status=$(curl -s -o /dev/null -w "%{http_code}" \
+            "$SUPABASE_URL/rest/v1/articulos?select=id&limit=1" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY")
+          echo "Respuesta de Supabase: $status"
+          test "$status" -lt 500
