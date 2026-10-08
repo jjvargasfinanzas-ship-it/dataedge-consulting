@@ -10,6 +10,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <meta name="theme-color" content="#1c2b44">
+    <script src="/meta-pixel.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
@@ -2713,6 +2714,7 @@
             const t = templates.find(x => x.name === name) || {};
             currentTemplateName = name;
             currentPremiumPrice = price;
+            dePixel('ViewContent', { content_name: name, content_type: 'product', value: price, currency: 'COP' });
             document.getElementById('premiumTitle').textContent = name;
             document.getElementById('premiumDesc').textContent = t.desc || '';
             document.getElementById('premiumIncludes').innerHTML = (t.includes || []).map(i => `<li>${i}</li>`).join('');
@@ -2724,7 +2726,10 @@
             if (t.wompi) {
                 btn.href = t.wompi;
                 btn.textContent = '💳 Comprar con Wompi';
-                btn.onclick = function () { try { sessionStorage.setItem('dec_pro', name); localStorage.setItem('dec_pro', name); } catch (e) {} };
+                btn.onclick = function () {
+                    try { sessionStorage.setItem('dec_pro', name); localStorage.setItem('dec_pro', name); localStorage.setItem('dec_pro_precio', String(price)); } catch (e) {}
+                    dePixel('InitiateCheckout', { content_name: name, value: price, currency: 'COP', num_items: 1 });
+                };
                 proof.href = mailtoComprobante(name);
                 proof.style.display = 'block';
                 note.textContent = 'Pago seguro con Wompi. Después de pagar, envíanos el comprobante indicando esta plantilla y te la enviamos por correo.';
@@ -2750,6 +2755,7 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            dePixel('DescargaPlantilla', { content_name: currentTemplateName }, true);
             showMessage('template', `✓ Descargando ${currentTemplateName}...`, 'success');
             closeModal('downloadModal');
         }
@@ -2986,6 +2992,7 @@
                 });
 
                 if (error) throw error;
+                dePixel('CompleteRegistration', { content_name: 'Registro gratis' });
 
                 if (data.session) {
                     currentUser = data.user;
@@ -3132,6 +3139,7 @@
                     email: document.getElementById('contactEmail').value.trim(),
                     mensaje: document.getElementById('contactMessage').value.trim()
                 });
+                dePixel('Contact', { content_name: 'Formulario de contacto' });
                 alert('Mensaje enviado. Te responderemos por correo pronto.');
                 document.getElementById('contactForm').reset();
             } catch (e) {
@@ -3155,6 +3163,7 @@
                     telefono: document.getElementById('servicePhone').value.trim(),
                     mensaje: document.getElementById('serviceMessage').value.trim()
                 });
+                dePixel('Lead', { content_name: (document.getElementById('contactServiceName').textContent || '').trim() || 'Servicio' });
                 alert('Solicitud enviada. Te contactaremos por correo para cotizar.');
                 form.reset();
                 closeModal('contactRequestModal');
