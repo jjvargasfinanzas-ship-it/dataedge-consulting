@@ -11,6 +11,9 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <meta name="theme-color" content="#1c2b44">
     <script src="/meta-pixel.js"></script>
+    <!-- Vercel Web Analytics: sin cookies. Se activa en Vercel > Project > Analytics -->
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+    <script defer src="/_vercel/insights/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
@@ -1897,6 +1900,71 @@
             .admin-bar { padding: .45rem .75rem !important; gap: .6rem !important; flex-wrap: wrap; font-size: .7rem !important; }
             .admin-bar span:nth-child(3) { display: none; }
         }
+
+        /* ============ REDES SOCIALES ============ */
+        .social-links { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; justify-content: center; }
+        .social-links:empty { display: none; }
+        .social-link { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .55rem 1rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); color: var(--text-light); text-decoration: none; font-size: .88rem; font-weight: 600; font-family: 'Inter', sans-serif; transition: background .2s, border-color .2s; }
+        .social-link:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.32); }
+        .social-link svg { width: 18px; height: 18px; flex: 0 0 18px; fill: currentColor; }
+        .social-link.yt svg { color: #ff4e45; }
+        .social-link small { font-weight: 500; color: var(--text-muted); }
+        .social-links[data-social="icons"] .social-link { padding: 0; width: 38px; min-height: 38px; justify-content: center; border-color: transparent; color: var(--text-muted); }
+        .social-links[data-social="icons"] .social-link:hover { color: var(--text-light); }
+        .social-links[data-social="icons"] .social-link.yt svg { color: inherit; }
+        .nav-social { gap: .1rem; margin-right: .25rem; flex-wrap: nowrap; flex-shrink: 0; }
+        @media (max-width: 1320px) { .nav-social { display: none !important; } }
+        .mobile-menu .mobile-social { display: flex; align-items: center; justify-content: space-between; padding: .9rem 1.5rem; border-top: 1px solid var(--border); color: var(--text-muted); font-size: .85rem; }
+        .mobile-menu .mobile-social .social-links { justify-content: flex-end; }
+        .footer-social { margin-bottom: 1.25rem; }
+
+        /* ============ VIDEOS ============ */
+        .videos { background: var(--bg-surface); color: var(--text-light); padding: 4.5rem 2rem; scroll-margin-top: 72px; }
+        .videos-container { max-width: 1140px; margin: 0 auto; }
+        .videos-head { text-align: center; max-width: 640px; margin: 0 auto 2.5rem; }
+        .videos-eyebrow { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: .6rem; }
+        .videos-head h2 { font-size: 2.1rem; line-height: 1.2; color: #fff; margin-bottom: .6rem; }
+        .videos-head p { color: var(--text-muted); font-size: 1rem; }
+        .video-feature { display: grid; grid-template-columns: 1.45fr 1fr; gap: 2rem; align-items: center; }
+        .video-feature:empty { display: none; }
+        .video-player { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius-md); overflow: hidden; background: #0c1628; box-shadow: var(--shadow-lg); }
+        .video-player iframe, .video-player img { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
+        .video-player button.video-play { position: absolute; inset: 0; width: 100%; border: 0; background: linear-gradient(180deg, rgba(12,22,40,0) 45%, rgba(12,22,40,.65)); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .video-play-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,.95); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 30px rgba(0,0,0,.35); transition: transform .2s; }
+        .video-play:hover .video-play-icon { transform: scale(1.06); }
+        .video-play-icon::after { content: ""; margin-left: 6px; border-style: solid; border-width: 13px 0 13px 22px; border-color: transparent transparent transparent var(--bg-dark); }
+        .video-product { background: var(--bg-dark); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-lg); padding: 1.75rem; }
+        .video-product-badge { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .25rem .65rem; border-radius: 999px; background: var(--green); color: #fff; margin-bottom: .9rem; }
+        .video-product-badge.pro { background: var(--gold); color: var(--bg-dark); }
+        .video-product h3 { color: #fff; font-size: 1.35rem; line-height: 1.3; margin-bottom: .5rem; }
+        .video-product p { color: var(--text-muted); font-size: .95rem; line-height: 1.6; margin-bottom: 1.25rem; }
+        .video-product .btn-primary { width: 100%; min-height: 48px; font-size: .98rem; }
+        .video-product-links { display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; margin-top: 1rem; font-size: .88rem; }
+        .video-product-links a, .video-product-links button { color: var(--accent-blue-light); font-weight: 600; text-decoration: none; background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-weight: 600; }
+        .video-product-links a:hover, .video-product-links button:hover { text-decoration: underline; }
+        .video-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+        .video-gallery:empty { display: none; }
+        .video-card { background: var(--bg-dark); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius-md); overflow: hidden; cursor: pointer; text-align: left; padding: 0; color: inherit; font: inherit; transition: border-color .2s, transform .2s; }
+        .video-card:hover, .video-card.active { border-color: var(--accent-blue); transform: translateY(-2px); }
+        .video-card img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+        .video-card-body { padding: .8rem .95rem 1rem; }
+        .video-card-body strong { display: block; color: #fff; font-size: .9rem; line-height: 1.4; }
+        .video-card-body span { color: var(--text-muted); font-size: .78rem; }
+        .videos-follow { margin-top: 2.75rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,.08); text-align: center; }
+        .videos-follow p { color: var(--text-muted); font-size: .9rem; margin-bottom: 1rem; }
+        .videos-admin { margin-top: 1.5rem; text-align: center; }
+        .catalog-videos-link { text-align: center; margin: -1.75rem auto 2rem; color: var(--text-gray); font-size: .95rem; }
+        .catalog-videos-link a { color: var(--accent-blue); font-weight: 600; text-decoration: none; }
+        .catalog-videos-link a:hover { text-decoration: underline; }
+        .video-admin-row { display: flex; align-items: center; gap: .75rem; padding: .6rem 0; border-bottom: 1px solid var(--border-light); font-size: .88rem; }
+        .video-admin-row img { width: 72px; border-radius: 6px; }
+        .video-admin-row div { flex: 1; min-width: 0; }
+        .video-admin-row button { background: none; border: 1px solid var(--border-light); border-radius: 6px; padding: .3rem .6rem; cursor: pointer; font-size: .78rem; }
+        @media (max-width: 860px) {
+            .video-feature { grid-template-columns: 1fr; gap: 1.25rem; }
+            .videos { padding: 3.5rem 1rem; }
+            .videos-head h2 { font-size: 1.65rem; }
+        }
     </style>
 </head>
 <body>
@@ -1912,14 +1980,16 @@
                 <img src="/logo-data-edge.svg" alt="Data Edge" class="nav-logo">
             </a>
             <ul class="nav-links">
-                <li><a href="#" onclick="goToPlantillas(); return false;">Plantillas</a></li>
+                <li><a href="#plantillas" onclick="goToPlantillas(); return false;">Plantillas</a></li>
                 <li><a href="#finanzas">Finanzas Personales</a></li>
                 <li><a href="#simuladores">Simuladores</a></li>
+                <li><a href="#videos">Videos</a></li>
                 <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#" onclick="showBlogView(); return false;">Blog</a></li>
+                <li><a href="#blog" onclick="showBlogView(); return false;">Blog</a></li>
                 <li class="hide-if-paid"><a href="#membership">Gratis vs Pro</a></li>
                 <li><a href="#contacto">Contacto</a></li>
             </ul>
+            <div class="nav-social social-links" data-social="icons" data-src="header"></div>
             <div class="nav-buttons">
                 <div class="user-menu" id="userMenu">
                     <span id="userName"></span>
@@ -1940,14 +2010,19 @@
         <!-- Mobile Menu -->
         <div class="mobile-menu" id="mobileMenu">
             <ul>
-                <li><a href="#" onclick="goToPlantillas(); return false;">Plantillas</a></li>
+                <li><a href="#plantillas" onclick="goToPlantillas(); return false;">Plantillas</a></li>
                 <li><a href="#finanzas" onclick="closeMobileMenu()">Finanzas Personales</a></li>
                 <li><a href="#simuladores" onclick="closeMobileMenu()">Simuladores</a></li>
+                <li><a href="#videos" onclick="closeMobileMenu()">Videos</a></li>
                 <li><a href="#servicios" onclick="closeMobileMenu()">Servicios</a></li>
-                <li><a href="#" onclick="showBlogView();closeMobileMenu();return false;">Blog</a></li>
+                <li><a href="#blog" onclick="showBlogView();closeMobileMenu();return false;">Blog</a></li>
                 <li class="hide-if-paid"><a href="#membership" onclick="closeMobileMenu()">Gratis vs Pro</a></li>
                 <li><a href="#contacto" onclick="closeMobileMenu()">Contacto</a></li>
             </ul>
+            <div class="mobile-social">
+                <span>Síguenos</span>
+                <div class="social-links" data-social="icons" data-src="menu"></div>
+            </div>
             <div class="mobile-user" id="mobileUserBox">
                 <div class="mobile-user-name">Sesión iniciada como <strong id="mobileUserName"></strong></div>
                 <button class="btn-outline-mobile" onclick="closeMobileMenu();goToProfile()">Mi perfil</button>
@@ -1981,40 +2056,6 @@
             <div class="trust-badge">
                 <div class="trust-badge-icon">🌎</div>
                 <p>Pensadas para<br>Colombia</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- PARA QUIÉN -->
-    <section class="para-quien" id="paraQuienSection">
-        <h2 class="section-title">¿Para quién es esto?</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">🚀</div>
-                <h3>Emprendedor que lanza su negocio</h3>
-                <ul class="card-bullets">
-                    <li>No sabes por dónde empezar con tu contabilidad</li>
-                    <li>Necesitas plantillas confiables sin gastar mucho</li>
-                    <li>Quieres reportes profesionales desde el día 1</li>
-                </ul>
-            </div>
-            <div class="card">
-                <div class="card-icon">📈</div>
-                <h3>Director que necesita reportes claros</h3>
-                <ul class="card-bullets">
-                    <li>Tu equipo necesita dashboards y KPIs visuales</li>
-                    <li>Requieres análisis financiero rápido y confiable</li>
-                    <li>Quieres tomar decisiones basadas en datos</li>
-                </ul>
-            </div>
-            <div class="card">
-                <div class="card-icon">💼</div>
-                <h3>Gerente que quiere controlar sus finanzas</h3>
-                <ul class="card-bullets">
-                    <li>Necesitas entender realmente tu flujo de caja</li>
-                    <li>Quieres presupuestos realistas y alcanzables</li>
-                    <li>Buscas herramientas fáciles de mantener</li>
-                </ul>
             </div>
         </div>
     </section>
@@ -2090,11 +2131,66 @@
     </div>
 
     <!-- PLANTILLAS -->
+    <!-- VIDEOS -->
+    <section class="videos" id="videos">
+        <div class="videos-container">
+            <div class="videos-head">
+                <span class="videos-eyebrow">Aprende en video</span>
+                <h2>Mira cómo se usa y llévate la plantilla</h2>
+                <p>Tutoriales cortos para resolver problemas financieros reales en Excel, paso a paso.</p>
+            </div>
+            <div class="video-feature" id="videoFeature"></div>
+            <div class="video-gallery" id="videoGallery"></div>
+            <div class="videos-follow">
+                <p>Recibe los nuevos tutoriales en tu red favorita</p>
+                <div class="social-links" data-social="full" data-src="videos"></div>
+            </div>
+            <div class="videos-admin" id="videosAdminActions" style="display:none">
+                <button class="btn-outline" onclick="openVideosAdmin()">⚙ Gestionar videos</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARA QUIÉN -->
+    <section class="para-quien" id="paraQuienSection">
+        <h2 class="section-title">¿Para quién es esto?</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🚀</div>
+                <h3>Emprendedor que lanza su negocio</h3>
+                <ul class="card-bullets">
+                    <li>No sabes por dónde empezar con tu contabilidad</li>
+                    <li>Necesitas plantillas confiables sin gastar mucho</li>
+                    <li>Quieres reportes profesionales desde el día 1</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-icon">📈</div>
+                <h3>Director que necesita reportes claros</h3>
+                <ul class="card-bullets">
+                    <li>Tu equipo necesita dashboards y KPIs visuales</li>
+                    <li>Requieres análisis financiero rápido y confiable</li>
+                    <li>Quieres tomar decisiones basadas en datos</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-icon">💼</div>
+                <h3>Gerente que quiere controlar sus finanzas</h3>
+                <ul class="card-bullets">
+                    <li>Necesitas entender realmente tu flujo de caja</li>
+                    <li>Quieres presupuestos realistas y alcanzables</li>
+                    <li>Buscas herramientas fáciles de mantener</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
     <section class="plantillas" id="plantillas">
         <h2 class="plantillas-title">Herramientas que marcan la diferencia</h2>
         <div class="membership-banner hide-if-paid">
             📌 Regístrate gratis y descarga las plantillas básicas. Las plantillas PRO se compran una sola vez.
         </div>
+        <p class="catalog-videos-link">¿Quieres ver cómo se usa? <a href="#videos">Mira los tutoriales</a> o <a href="https://www.youtube.com/@dataedgeco" target="_blank" rel="noopener" data-social-click="youtube" data-src="catalogo">suscríbete en YouTube</a>.</p>
         <div class="templates-grid" id="templatesGrid">
         </div>
     </section>
@@ -2109,7 +2205,7 @@
         <div id="simLockOverlay" class="sim-lock-overlay" style="display:none;">
             <div class="lock-icon">🔒</div>
             <h3>Simuladores gratis con tu registro</h3>
-            <p>Crea tu cuenta gratis y usa 5 simuladores financieros profesionales, además de las plantillas básicas.</p>
+            <p>Crea tu cuenta gratis y usa 6 simuladores financieros profesionales, además de las plantillas básicas.</p>
             <button class="btn-primary" onclick="openAuth('register')">Registrarme gratis →</button>
         </div>
 
@@ -2386,7 +2482,7 @@
                 <div class="benefit">
                     <div class="benefit-icon">🧮</div>
                     <div class="benefit-text">
-                        <strong>5 simuladores gratis</strong>
+                        <strong>6 simuladores gratis</strong>
                         <span>Crédito, inversión, ahorro y más, con tu registro</span>
                     </div>
                 </div>
@@ -2424,8 +2520,8 @@
                     <li>Funciona en el celular y en el computador. Se instala como app.</li>
                 </ul>
                 <div class="finanzas-cta">
-                    <a class="btn-primary" href="https://data-edge-finanzas.vercel.app/registro" target="_blank" rel="noopener">Crear mi cuenta gratis</a>
-                    <a class="finanzas-link" href="https://data-edge-finanzas.vercel.app" target="_blank" rel="noopener">Conocer la app →</a>
+                    <a class="btn-primary" href="https://data-edge-finanzas.vercel.app/registro?utm_source=dataedge-web&utm_medium=referral&utm_campaign=seccion-finanzas" target="_blank" rel="noopener">Crear mi cuenta gratis</a>
+                    <a class="finanzas-link" href="https://data-edge-finanzas.vercel.app/?utm_source=dataedge-web&utm_medium=referral&utm_campaign=seccion-finanzas" target="_blank" rel="noopener">Conocer la app →</a>
                 </div>
                 <p class="finanzas-note">Durante la beta el acceso es gratuito. Quienes participen tendrán condiciones preferenciales cuando se lance la versión de pago. Tu información es privada: cada usuario solo ve sus propios datos.</p>
             </div>
@@ -2639,6 +2735,7 @@
 
     <!-- FOOTER -->
     <footer>
+        <div class="footer-social social-links" data-social="full" data-src="footer"></div>
         <p>&copy; 2026 Data Edge Consulting. Todos los derechos reservados. | <a href="/privacidad.html" style="color: var(--accent-blue); text-decoration: none;">Política de privacidad</a></p>
     </footer>
 
@@ -2781,17 +2878,17 @@
         // included: true  = gratis con registro
         // included: false = PRO (pago único). En "wompi" pega el link de pago de Wompi de esa plantilla.
         const templates = [
-            { name: 'Flujo de Caja Mensual', icon: '📊', desc: 'Controla tu cash flow día a día', badge: 'Gratis', included: true, file: 'Plantillas/Fp_Flujo_de_caja_mensual.xlsx' },
-            { name: 'Finanzas Personales', icon: '💰', desc: 'Organiza tus gastos e ingresos', badge: 'Gratis', included: true, file: null },
-            { name: 'Tabla de Amortización', icon: '📉', desc: 'Calcula préstamos con precisión', badge: 'Gratis', included: true, file: null },
-            { name: 'Presupuesto 2027 + Cierre 2026', icon: '📋', desc: 'Proyecta tu cierre 2026 y arma tu presupuesto 2027 mes a mes', badge: 'Gratis', included: true, file: 'Plantillas/DataEdge_Presupuesto_2027_Cierre_2026.xlsx' },
-            { name: 'Valoración de Empresas DCF', icon: '🏢', desc: 'Valúa empresas con flujo de caja descontado', price: 'COP $80.000', badge: 'PRO', included: false, wompi: WOMPI_PRO,
+            { slug: 'flujo-de-caja', name: 'Flujo de Caja Mensual', icon: '📊', desc: 'Controla tu cash flow día a día', badge: 'Gratis', included: true, file: 'Plantillas/Fp_Flujo_de_caja_mensual.xlsx' },
+            { slug: 'finanzas-personales', name: 'Finanzas Personales', icon: '💰', desc: 'Organiza tus gastos e ingresos', badge: 'Gratis', included: true, file: null },
+            { slug: 'amortizacion', name: 'Tabla de Amortización', icon: '📉', desc: 'Calcula préstamos con precisión', badge: 'Gratis', included: true, file: null },
+            { slug: 'presupuesto-2027', name: 'Presupuesto 2027 + Cierre 2026', icon: '📋', desc: 'Proyecta tu cierre 2026 y arma tu presupuesto 2027 mes a mes', badge: 'Gratis', included: true, file: 'Plantillas/DataEdge_Presupuesto_2027_Cierre_2026.xlsx' },
+            { slug: 'valoracion-dcf', name: 'Valoración de Empresas DCF', icon: '🏢', desc: 'Valúa empresas con flujo de caja descontado', price: 'COP $80.000', badge: 'PRO', included: false, wompi: WOMPI_PRO,
               includes: ['Proyección de estados financieros a 5 años', 'Cálculo de WACC y flujo de caja libre', 'Valor terminal y valor de la empresa', 'Análisis de sensibilidad', 'Guía de uso paso a paso'] },
-            { name: 'Presupuesto Anual + P&L', icon: '📋', desc: 'Presupuesto anual con estado de resultados', price: 'COP $80.000', badge: 'PRO', included: false, wompi: WOMPI_PRO,
+            { slug: 'presupuesto-anual-pl', name: 'Presupuesto Anual + P&L', icon: '📋', desc: 'Presupuesto anual con estado de resultados', price: 'COP $80.000', badge: 'PRO', included: false, wompi: WOMPI_PRO,
               includes: ['Presupuesto mensual de ingresos, costos y gastos', 'Estado de resultados (P&L) automático', 'Comparativo presupuesto vs. real', 'Gráficos de seguimiento', 'Guía de uso paso a paso'] },
-            { name: 'Análisis VPN/TIR', icon: '📈', desc: 'Evalúa la rentabilidad de tus proyectos', price: 'COP $80.000', badge: 'PRO', included: false, wompi: WOMPI_PRO,
+            { slug: 'vpn-tir', name: 'Análisis VPN/TIR', icon: '📈', desc: 'Evalúa la rentabilidad de tus proyectos', price: 'COP $80.000', badge: 'PRO', included: false, wompi: WOMPI_PRO,
               includes: ['Flujo de caja del proyecto', 'VPN, TIR y periodo de recuperación', 'Comparación de varios escenarios', 'Análisis de sensibilidad', 'Guía de uso paso a paso'] },
-            { name: 'Dashboard KPIs Gerenciales', icon: '🎯', desc: 'Tablero visual con tus indicadores clave', price: 'COP $80.000', badge: 'PRO', included: false, wompi: WOMPI_PRO,
+            { slug: 'dashboard-kpis', name: 'Dashboard KPIs Gerenciales', icon: '🎯', desc: 'Tablero visual con tus indicadores clave', price: 'COP $80.000', badge: 'PRO', included: false, wompi: WOMPI_PRO,
               includes: ['Indicadores de rentabilidad, liquidez y endeudamiento', 'Tablero visual listo para presentar', 'Semáforos y metas por indicador', 'Comparación mes a mes', 'Guía de uso paso a paso'] }
         ];
 
@@ -2799,7 +2896,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             renderTemplates();
             updateSimuladores();
-            loadProfile();
+            renderSocial();
+            loadVideos();
+            loadProfile().then(handleDeepLink);
             renderCreditosEVA();
             supabaseClient.auth.onAuthStateChange(function(event) {
                 if (event === 'SIGNED_OUT' && currentUser) {
@@ -2845,6 +2944,8 @@
             }
 
             if (!currentUser) {
+                // Guardar la intención para descargarla apenas inicie sesión o confirme su correo
+                try { localStorage.setItem('dec_pending_tpl', name); } catch (e) {}
                 openAuth('register');
                 return;
             }
@@ -2981,7 +3082,7 @@
                     currentUser = session.user;
 
                     // Admin bypass — acceso total sin restricciones
-                    if (currentUser.email === ADMIN_EMAIL) {
+                    if ((currentUser.email || '').toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
                         isAdmin = true;
                         userPaid = true;
                     } else {
@@ -3054,6 +3155,16 @@
 
             renderTemplates();
             updateSimuladores();
+            renderVideos();
+            if (currentUser) resumePendingDownload();
+        }
+
+        function resumePendingDownload() {
+            var pending = null;
+            try { pending = localStorage.getItem('dec_pending_tpl'); localStorage.removeItem('dec_pending_tpl'); } catch (e) {}
+            if (pending && templates.some(function (t) { return t.name === pending; })) {
+                setTimeout(function () { accessTemplate(pending, false); }, 400);
+            }
         }
 
         // SHOW MEMBERS DASHBOARD
@@ -3193,7 +3304,7 @@
                 currentUser = data.user;
 
                 // Admin bypass
-                if (currentUser.email === ADMIN_EMAIL) {
+                if ((currentUser.email || '').toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
                     isAdmin = true;
                     userPaid = true;
                 } else {
@@ -3254,7 +3365,9 @@
             document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('show'));
             document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
             document.getElementById(tab + 'Form').classList.add('show');
-            event.target.classList.add('active');
+            document.querySelectorAll('.auth-tab').forEach(function (t) {
+                if ((t.getAttribute('onclick') || '').indexOf("'" + tab + "'") !== -1) t.classList.add('active');
+            });
         }
 
         function openModal(id) {
@@ -3996,5 +4109,335 @@
             }
         }
     </script>
+    <!-- ADMIN: GESTIÓN DE VIDEOS -->
+    <div class="modal-overlay" id="videosAdminModal">
+        <div class="modal editor-modal-content">
+            <button class="modal-close" onclick="closeModal('videosAdminModal')">✕</button>
+            <h2 id="videoEditorTitle" style="margin-bottom:1rem">Videos de la página</h2>
+            <div id="videoAdminList" style="margin-bottom:1.5rem"></div>
+            <div class="editor-form">
+                <input type="hidden" id="vidId" value="">
+                <div class="field">
+                    <label>Enlace de YouTube *</label>
+                    <input type="text" id="vidUrl" placeholder="https://youtu.be/... o https://www.youtube.com/shorts/...">
+                </div>
+                <div class="field">
+                    <label>Título *</label>
+                    <input type="text" id="vidTitulo" placeholder="Cómo hacer el presupuesto 2027 en Excel">
+                </div>
+                <div class="field">
+                    <label>Descripción corta</label>
+                    <input type="text" id="vidDesc" placeholder="Una línea: qué problema resuelve el video">
+                </div>
+                <div class="row">
+                    <div class="field">
+                        <label>Producto que promociona</label>
+                        <select id="vidProducto"></select>
+                    </div>
+                    <div class="field">
+                        <label>Formato</label>
+                        <select id="vidFormato"><option value="largo">Video largo / tutorial</option><option value="short">Short / Reel</option></select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="field">
+                        <label>Orden (1 = primero)</label>
+                        <input type="number" id="vidOrden" value="1" min="1">
+                    </div>
+                    <div class="field">
+                        <label>Estado</label>
+                        <select id="vidPublicado"><option value="true">Publicado</option><option value="false">Oculto</option></select>
+                    </div>
+                </div>
+                <label style="display:flex;gap:.5rem;align-items:center;font-size:.88rem;margin:.25rem 0 1rem;"><input type="checkbox" id="vidDestacado" style="width:auto"> Video principal (el que aparece grande)</label>
+                <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+                    <button class="btn-primary" onclick="saveVideo()">Guardar video</button>
+                    <button class="btn-outline" style="color:var(--text-dark);border-color:var(--border-light)" onclick="resetVideoForm()">Limpiar</button>
+                </div>
+                <p id="vidMsg" style="font-size:.85rem;margin-top:.75rem"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============ REDES SOCIALES ============
+        // Enlaces oficiales de la marca. Si un campo está vacío, ese botón no se muestra.
+        var SOCIAL = {
+            youtube:   'https://www.youtube.com/@dataedgeco',
+            instagram: 'https://www.instagram.com/dataedgeconsulting/',
+            facebook:  ''   // Pegar aquí el enlace de la página de Facebook de Data Edge Consulting
+        };
+        var SOCIAL_ICONS = {
+            youtube: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>',
+            instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3c1.2-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>',
+            facebook: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.1C24 5.4 18.6 0 12 0S0 5.4 0 12.1c0 6 4.4 11 10.1 11.9v-8.4H7.1v-3.5h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9v2.3h3.3l-.5 3.5h-2.8V24C19.6 23.1 24 18.1 24 12.1z"/></svg>'
+        };
+        var SOCIAL_LABELS = {
+            youtube:   ['Suscríbete', 'YouTube'],
+            instagram: ['Síguenos', 'Instagram'],
+            facebook:  ['Síguenos', 'Facebook']
+        };
+
+        function socialHref(red) {
+            // En YouTube, sub_confirmation abre directamente la confirmación de suscripción
+            return red === 'youtube' ? SOCIAL.youtube + '?sub_confirmation=1' : SOCIAL[red];
+        }
+
+        function renderSocial() {
+            document.querySelectorAll('[data-social]').forEach(function (box) {
+                var modo = box.getAttribute('data-social');
+                var src = box.getAttribute('data-src') || '';
+                box.innerHTML = ['youtube', 'instagram', 'facebook'].filter(function (r) { return SOCIAL[r]; }).map(function (r) {
+                    var lbl = SOCIAL_LABELS[r];
+                    var texto = modo === 'icons' ? '' : '<span>' + lbl[0] + ' <small>en ' + lbl[1] + '</small></span>';
+                    return '<a class="social-link ' + (r === 'youtube' ? 'yt' : '') + '" href="' + socialHref(r) + '" target="_blank" rel="noopener"'
+                        + ' data-social-click="' + r + '" data-src="' + src + '" aria-label="' + lbl[0] + ' a Data Edge en ' + lbl[1] + '">'
+                        + SOCIAL_ICONS[r] + texto + '</a>';
+                }).join('');
+            });
+        }
+
+        // Medición de clics hacia redes (Vercel Analytics y píxel de Meta, si están activos)
+        function deTrack(evento, datos) {
+            try { if (window.va) window.va('event', { name: evento, data: datos || {} }); } catch (e) {}
+            try { if (window.dePixel) dePixel(evento, datos || {}, true); } catch (e) {}
+        }
+        document.addEventListener('click', function (e) {
+            var a = e.target.closest && e.target.closest('[data-social-click]');
+            if (a) deTrack('ClicRedSocial', { red: a.getAttribute('data-social-click'), ubicacion: a.getAttribute('data-src') || '' });
+        });
+
+        // ============ VIDEOS ============
+        // Respaldo: se usa si la tabla "videos" de Supabase no existe o está vacía.
+        var VIDEOS_DEFAULT = [
+            { id: 'default-1', youtube_id: '_KUgZFClbd4', titulo: 'Cómo hacer el presupuesto 2027 en Excel en 5 pasos',
+              descripcion: 'Proyecta el cierre 2026 con tus cifras reales y arma el presupuesto 2027 mes a mes.',
+              producto: 'presupuesto-2027', formato: 'largo', destacado: true, orden: 1, publicado: true }
+        ];
+        var VIDEOS = VIDEOS_DEFAULT.slice();
+        var videoActual = null;
+        var videosDesdeBD = false;
+
+        // Páginas propias de producto (para enlazar desde los videos)
+        var PRODUCT_PAGES = { 'presupuesto-2027': '/presupuesto-2027.html' };
+
+        // Productos que no son plantillas
+        var OTROS_PRODUCTOS = {
+            'app-finanzas':    { name: 'Data Edge Finanzas', desc: 'Organiza tus finanzas personales y familiares y mira tu saldo proyectado.', badge: 'App · Beta gratis', cta: 'Probar la app gratis',
+                                 go: function () { window.open('https://data-edge-finanzas.vercel.app/registro?utm_source=dataedge-web&utm_medium=video&utm_campaign=' + (videoActual ? videoActual.youtube_id : ''), '_blank', 'noopener'); } },
+            'simuladores':     { name: 'Simuladores financieros', desc: 'Crédito, inversión, ahorro, ROI, valoración DCF y EVA.', badge: 'Gratis con registro', cta: 'Usar los simuladores',
+                                 go: function () { scrollToSection('simuladores'); } },
+            'modelo-a-medida': { name: 'Modelo a tu medida', desc: 'Presupuestos, proyecciones y modelos financieros construidos con la información de tu empresa.', badge: 'Servicio', cta: 'Solicitar cotización',
+                                 go: function () { openContactModal('Modelo a tu medida'); } },
+            'catalogo':        { name: 'Catálogo de plantillas', desc: 'Plantillas gratuitas y PRO para presupuesto, flujo de caja, valoración e indicadores.', badge: 'Catálogo', cta: 'Explorar el catálogo',
+                                 go: function () { goToPlantillas(); } }
+        };
+
+        function esc(t) { return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+        function youtubeId(url) {
+            var m = String(url || '').trim().match(/(?:youtu\.be\/|v=|\/shorts\/|\/embed\/|\/live\/)([A-Za-z0-9_-]{11})/);
+            if (m) return m[1];
+            return /^[A-Za-z0-9_-]{11}$/.test(String(url || '').trim()) ? String(url).trim() : null;
+        }
+
+        function productoInfo(slug) {
+            var t = templates.find(function (x) { return x.slug === slug; });
+            if (t) {
+                var gratis = t.included;
+                return {
+                    name: t.name, desc: t.desc, badge: gratis ? 'Plantilla gratis' : 'Plantilla PRO · ' + (t.price || ''), pro: !gratis,
+                    cta: gratis ? (t.file ? 'Descargar la plantilla gratis' : 'Avísame cuando esté lista') : 'Ver qué incluye la versión PRO',
+                    go: function () { deTrack('ClicProductoVideo', { producto: slug }); accessTemplate(t.name, !gratis); }
+                };
+            }
+            var o = OTROS_PRODUCTOS[slug];
+            if (o) return { name: o.name, desc: o.desc, badge: o.badge, cta: o.cta, pro: false, go: function () { deTrack('ClicProductoVideo', { producto: slug }); o.go(); } };
+            return null;
+        }
+
+        async function loadVideos() {
+            try {
+                var res = await supabaseClient.from('videos').select('*').eq('publicado', true).order('destacado', { ascending: false }).order('orden', { ascending: true });
+                if (!res.error && res.data && res.data.length) { VIDEOS = res.data; videosDesdeBD = true; }
+            } catch (e) { /* sin tabla: se usa el respaldo */ }
+            renderVideos();
+        }
+
+        function renderVideos() {
+            var feat = document.getElementById('videoFeature');
+            var gal = document.getElementById('videoGallery');
+            var adminBox = document.getElementById('videosAdminActions');
+            if (adminBox) adminBox.style.display = (typeof isAdmin !== 'undefined' && isAdmin) ? 'block' : 'none';
+            if (!feat) return;
+            if (!VIDEOS.length) { document.getElementById('videos').style.display = 'none'; return; }
+            if (!videoActual || !VIDEOS.some(function (v) { return v.youtube_id === videoActual.youtube_id; })) {
+                videoActual = VIDEOS.find(function (v) { return v.destacado; }) || VIDEOS[0];
+            }
+            mostrarVideo(videoActual, false);
+            gal.innerHTML = VIDEOS.length < 2 ? '' : VIDEOS.map(function (v, i) {
+                return '<button class="video-card' + (v.youtube_id === videoActual.youtube_id ? ' active' : '') + '" onclick="elegirVideo(' + i + ')">'
+                    + '<img src="https://i.ytimg.com/vi/' + esc(v.youtube_id) + '/mqdefault.jpg" alt="" loading="lazy">'
+                    + '<div class="video-card-body"><strong>' + esc(v.titulo) + '</strong><span>' + (v.formato === 'short' ? 'Video corto' : 'Tutorial') + '</span></div></button>';
+            }).join('');
+        }
+
+        function elegirVideo(i) {
+            videoActual = VIDEOS[i];
+            renderVideos();
+            mostrarVideo(videoActual, true);
+            document.getElementById('videoFeature').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function mostrarVideo(v, autoplay) {
+            var feat = document.getElementById('videoFeature');
+            var p = productoInfo(v.producto);
+            var ytUrl = v.formato === 'short' ? 'https://www.youtube.com/shorts/' + v.youtube_id : 'https://youtu.be/' + v.youtube_id;
+            var pagina = PRODUCT_PAGES[v.producto];
+            var player = autoplay
+                ? '<iframe src="https://www.youtube-nocookie.com/embed/' + esc(v.youtube_id) + '?autoplay=1&rel=0&modestbranding=1" title="' + esc(v.titulo) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                : '<img src="https://i.ytimg.com/vi/' + esc(v.youtube_id) + '/hqdefault.jpg" alt="' + esc(v.titulo) + '" loading="lazy">'
+                  + '<button class="video-play" onclick="reproducirVideo()" aria-label="Reproducir: ' + esc(v.titulo) + '"><span class="video-play-icon"></span></button>';
+            feat.innerHTML = '<div class="video-player">' + player + '</div>'
+                + '<div class="video-product">'
+                + (p ? '<span class="video-product-badge' + (p.pro ? ' pro' : '') + '">' + esc(p.badge) + '</span>' : '')
+                + '<h3>' + esc(v.titulo) + '</h3>'
+                + '<p>' + esc(v.descripcion || (p ? p.desc : '')) + '</p>'
+                + (p ? '<button class="btn-primary" onclick="ctaVideo()">' + esc(p.cta) + ' →</button>' : '')
+                + '<div class="video-product-links">'
+                + (pagina ? '<a href="' + pagina + '">Ver qué incluye</a>' : '')
+                + '<a href="' + ytUrl + '" target="_blank" rel="noopener" data-social-click="youtube" data-src="video">Ver en YouTube</a>'
+                + '<button onclick="compartirVideo()">Compartir</button>'
+                + '</div></div>';
+        }
+
+        function reproducirVideo() {
+            deTrack('ReproduccionVideo', { video: videoActual.youtube_id });
+            mostrarVideo(videoActual, true);
+        }
+
+        function ctaVideo() {
+            var p = productoInfo(videoActual.producto);
+            if (p) p.go();
+        }
+
+        function compartirVideo() {
+            var pagina = PRODUCT_PAGES[videoActual.producto];
+            var url = window.location.origin + (pagina || '/#videos') + '?utm_source=compartido&utm_medium=social&utm_campaign=' + encodeURIComponent(videoActual.producto || 'video');
+            var texto = videoActual.titulo + ' — tutorial y plantilla de Data Edge';
+            deTrack('CompartirVideo', { video: videoActual.youtube_id });
+            if (navigator.share) {
+                navigator.share({ title: texto, url: url }).catch(function () {});
+            } else {
+                window.open('https://wa.me/?text=' + encodeURIComponent(texto + ': ' + url), '_blank', 'noopener');
+            }
+        }
+
+        // Enlaces directos desde redes: /?plantilla=presupuesto-2027  o  /?video=_KUgZFClbd4
+        function handleDeepLink() {
+            try {
+                var q = new URLSearchParams(window.location.search);
+                var slug = q.get('plantilla');
+                var vid = q.get('video');
+                if (vid) {
+                    var i = VIDEOS.findIndex(function (v) { return v.youtube_id === vid; });
+                    if (i >= 0) { videoActual = VIDEOS[i]; renderVideos(); }
+                    setTimeout(function () { document.getElementById('videos').scrollIntoView({ behavior: 'smooth' }); }, 300);
+                }
+                if (slug) {
+                    var t = templates.find(function (x) { return x.slug === slug; });
+                    if (t) setTimeout(function () { accessTemplate(t.name, !t.included); }, 500);
+                }
+            } catch (e) {}
+        }
+
+        // ============ ADMIN: VIDEOS ============
+        function openVideosAdmin() {
+            if (!isAdmin) return;
+            var sel = document.getElementById('vidProducto');
+            sel.innerHTML = templates.map(function (t) { return '<option value="' + t.slug + '">' + esc(t.name) + (t.included ? ' (gratis)' : ' (PRO)') + '</option>'; }).join('')
+                + Object.keys(OTROS_PRODUCTOS).map(function (k) { return '<option value="' + k + '">' + esc(OTROS_PRODUCTOS[k].name) + '</option>'; }).join('');
+            resetVideoForm();
+            renderVideoAdminList();
+            openModal('videosAdminModal');
+        }
+
+        async function renderVideoAdminList() {
+            var box = document.getElementById('videoAdminList');
+            box.innerHTML = 'Cargando…';
+            var res = await supabaseClient.from('videos').select('*').order('orden', { ascending: true });
+            if (res.error) {
+                box.innerHTML = '<p style="color:#b45309;font-size:.85rem">No se encontró la tabla <strong>videos</strong> en Supabase. Ejecuta el archivo <strong>videos.sql</strong> en el SQL Editor y vuelve a abrir esta ventana. Mientras tanto la página muestra el video de respaldo.</p>';
+                return;
+            }
+            window._videosAdmin = res.data || [];
+            box.innerHTML = window._videosAdmin.length ? window._videosAdmin.map(function (v, i) {
+                return '<div class="video-admin-row"><img src="https://i.ytimg.com/vi/' + esc(v.youtube_id) + '/default.jpg" alt="">'
+                    + '<div><strong>' + esc(v.titulo) + '</strong><br><small>' + (v.publicado ? 'Publicado' : 'Oculto') + (v.destacado ? ' · Principal' : '') + ' · ' + esc(v.producto || '') + '</small></div>'
+                    + '<button onclick="editVideo(' + i + ')">Editar</button><button onclick="deleteVideo(' + i + ')">Eliminar</button></div>';
+            }).join('') : '<p style="font-size:.85rem;color:var(--text-gray)">Aún no hay videos guardados. Agrega el primero abajo.</p>';
+        }
+
+        function resetVideoForm() {
+            ['vidId', 'vidUrl', 'vidTitulo', 'vidDesc'].forEach(function (id) { document.getElementById(id).value = ''; });
+            document.getElementById('vidOrden').value = '1';
+            document.getElementById('vidPublicado').value = 'true';
+            document.getElementById('vidFormato').value = 'largo';
+            document.getElementById('vidDestacado').checked = false;
+            document.getElementById('vidProducto').selectedIndex = 0;
+            document.getElementById('vidMsg').textContent = '';
+        }
+
+        function editVideo(i) {
+            var v = window._videosAdmin[i];
+            document.getElementById('vidId').value = v.id;
+            document.getElementById('vidUrl').value = 'https://youtu.be/' + v.youtube_id;
+            document.getElementById('vidTitulo').value = v.titulo || '';
+            document.getElementById('vidDesc').value = v.descripcion || '';
+            document.getElementById('vidProducto').value = v.producto || '';
+            document.getElementById('vidFormato').value = v.formato || 'largo';
+            document.getElementById('vidOrden').value = v.orden || 1;
+            document.getElementById('vidPublicado').value = String(!!v.publicado);
+            document.getElementById('vidDestacado').checked = !!v.destacado;
+        }
+
+        async function saveVideo() {
+            if (!isAdmin) return;
+            var msg = document.getElementById('vidMsg');
+            var yid = youtubeId(document.getElementById('vidUrl').value);
+            var titulo = document.getElementById('vidTitulo').value.trim();
+            if (!yid) { msg.textContent = 'El enlace de YouTube no es válido.'; return; }
+            if (!titulo) { msg.textContent = 'Escribe el título.'; return; }
+            var payload = {
+                youtube_id: yid, titulo: titulo,
+                descripcion: document.getElementById('vidDesc').value.trim() || null,
+                producto: document.getElementById('vidProducto').value,
+                formato: document.getElementById('vidFormato').value,
+                orden: parseInt(document.getElementById('vidOrden').value, 10) || 1,
+                publicado: document.getElementById('vidPublicado').value === 'true',
+                destacado: document.getElementById('vidDestacado').checked
+            };
+            var id = document.getElementById('vidId').value;
+            msg.textContent = 'Guardando…';
+            if (payload.destacado) await supabaseClient.from('videos').update({ destacado: false }).neq('youtube_id', yid);
+            var res = id ? await supabaseClient.from('videos').update(payload).eq('id', id)
+                         : await supabaseClient.from('videos').insert(payload);
+            if (res.error) { msg.textContent = 'No se pudo guardar: ' + res.error.message; return; }
+            msg.textContent = '✓ Guardado';
+            resetVideoForm();
+            await renderVideoAdminList();
+            await loadVideos();
+        }
+
+        async function deleteVideo(i) {
+            var v = window._videosAdmin[i];
+            if (!confirm('¿Eliminar el video "' + v.titulo + '" de la página? (No se borra de YouTube)')) return;
+            var res = await supabaseClient.from('videos').delete().eq('id', v.id);
+            if (res.error) { alert('No se pudo eliminar: ' + res.error.message); return; }
+            await renderVideoAdminList();
+            await loadVideos();
+        }
+    </script>
+
 </body>
 </html>
