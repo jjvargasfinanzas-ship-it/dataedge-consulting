@@ -410,6 +410,74 @@
 
         .hero.hidden { display: none; }
 
+        /* ---- Hero con video promocional ---- */
+        .hero.hero-has-video { padding: 5.5rem 2rem 4.5rem; }
+        .hero-grid {
+            max-width: 1220px;
+            margin: 0 auto 3.5rem;
+            display: grid;
+            grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+            gap: 3rem;
+            align-items: center;
+            text-align: left;
+        }
+        .hero-grid .hero-copy h1 { font-size: 3rem; margin-left: 0; margin-right: 0; }
+        .hero-grid .hero-subtext { margin-left: 0; margin-right: 0; }
+        .hero-grid .hero-buttons { justify-content: flex-start; margin-bottom: 0; }
+        .hero-video {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: #0B1F3A;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.38), 0 0 0 1px rgba(130,184,248,0.18);
+            aspect-ratio: 16 / 9;
+        }
+        .hero-video video { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .hv-controls {
+            position: absolute; left: 12px; bottom: 12px; display: flex; gap: 8px; z-index: 2;
+        }
+        .hv-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 0.45rem 0.8rem; min-height: 36px;
+            background: rgba(11,31,58,0.78); color: #fff;
+            border: 1px solid rgba(255,255,255,0.22); border-radius: 100px;
+            font: 500 0.8rem 'Inter', sans-serif; cursor: pointer;
+            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            transition: background .2s;
+        }
+        .hv-btn:hover { background: rgba(11,31,58,0.95); }
+        .hv-btn svg { width: 16px; height: 16px; }
+        .hv-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255,255,255,0.12); z-index: 2; }
+        .hv-progress span { display: block; height: 100%; width: 0; background: var(--accent-blue-light); }
+        .hv-end {
+            position: absolute; inset: 0; z-index: 3;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 1rem; padding: 1.5rem; text-align: center;
+            background: rgba(11,31,58,0.95);
+            opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s;
+        }
+        .hv-end.show { opacity: 1; visibility: visible; }
+        .hv-end h3 { color: #fff; font-size: 1.35rem; line-height: 1.3; margin: 0; }
+        .hv-end-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
+        .hv-end-actions a, .hv-end-actions button {
+            padding: 0.65rem 1.1rem; border-radius: var(--radius-sm);
+            font: 600 0.88rem 'Inter', sans-serif; text-decoration: none; cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.25); color: #fff; background: rgba(255,255,255,0.06);
+        }
+        .hv-end-actions a.primary { background: var(--accent-blue); border-color: var(--accent-blue); }
+        .hv-end-actions a:hover, .hv-end-actions button:hover { filter: brightness(1.12); }
+        .hv-replay { background: none; border: none; color: var(--text-muted); font: 500 0.85rem 'Inter', sans-serif; cursor: pointer; text-decoration: underline; }
+        @media (max-width: 900px) {
+            .hero.hero-has-video { padding: 1.25rem 1rem 2.5rem; }
+            .hero-grid { grid-template-columns: 1fr; gap: 1.75rem; text-align: center; margin-bottom: 2rem; }
+            .hero-grid .hero-video { order: -1; border-radius: var(--radius-md); }
+            .hero-grid .hero-copy h1 { font-size: 1.9rem; margin-left: auto; margin-right: auto; }
+            .hero-grid .hero-subtext { margin-left: auto; margin-right: auto; }
+            .hero-grid .hero-buttons { justify-content: center; }
+            .hv-end h3 { font-size: 1.05rem; }
+            .hv-end-actions a, .hv-end-actions button { padding: 0.55rem 0.85rem; font-size: 0.8rem; }
+        }
+
         .hero-eyebrow {
             display: inline-block;
             font-size: 0.72rem;
@@ -2134,14 +2202,75 @@
     </script>
 
     <!-- HERO -->
-    <section class="hero" id="heroSection">
-        <div class="hero-eyebrow">Para emprendedores y líderes empresariales</div>
-        <h1>Las plantillas financieras que tu empresa necesita</h1>
-        <p class="hero-subtext">Modelos de Excel construidos desde la práctica financiera real. Listos para usar, fáciles de adaptar.</p>
-        <div class="hero-buttons">
-            <button class="btn-primary" onclick="scrollToSection('plantillas')">Ver plantillas →</button>
-            <button class="btn-secondary" onclick="scrollToSection('membership')">Qué es gratis</button>
+    <section class="hero hero-has-video" id="heroSection">
+        <div class="hero-grid">
+            <div class="hero-copy">
+                <div class="hero-eyebrow">Para emprendedores y líderes empresariales</div>
+                <h1>Las plantillas financieras que tu empresa necesita</h1>
+                <p class="hero-subtext">Modelos de Excel construidos desde la práctica financiera real. Listos para usar, fáciles de adaptar.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="scrollToSection('plantillas')">Ver plantillas →</button>
+                    <button class="btn-secondary" onclick="window.location.href='/empresas.html'">Consultoría para empresas</button>
+                </div>
+            </div>
+            <div class="hero-video" id="heroVideo">
+                <video id="heroVideoEl" muted playsinline preload="metadata"
+                       poster="/media/dataedge-promo-poster.jpg"
+                       aria-label="Video: cómo Data Edge ayuda a tu empresa a decidir con números confiables">
+                    <source src="/media/dataedge-promo.mp4" type="video/mp4">
+                </video>
+                <div class="hv-progress" aria-hidden="true"><span id="hvProgress"></span></div>
+                <div class="hv-controls">
+                    <button type="button" class="hv-btn" id="hvPlay" aria-label="Pausar video">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path id="hvPlayIcon" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+                    </button>
+                    <button type="button" class="hv-btn" id="hvSound" aria-label="Activar sonido">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path id="hvSoundIcon" d="M22 9l-6 6M16 9l6 6"/></svg>
+                        <span id="hvSoundLabel">Activar sonido</span>
+                    </button>
+                </div>
+                <div class="hv-end" id="hvEnd" role="dialog" aria-label="¿Por dónde quieres empezar?">
+                    <h3>¿Por dónde quieres empezar?</h3>
+                    <div class="hv-end-actions">
+                        <a href="/empresas.html#contacto" class="primary">Agendar diagnóstico</a>
+                        <a href="#plantillas" onclick="goToPlantillas(); return false;">Ver plantillas</a>
+                        <a href="#simuladores" onclick="scrollToSection('simuladores'); return false;">Probar simuladores</a>
+                    </div>
+                    <button type="button" class="hv-replay" id="hvReplay">Ver el video de nuevo</button>
+                </div>
+            </div>
         </div>
+        <script>
+        (function () {
+            var v = document.getElementById('heroVideoEl'); if (!v) return;
+            var playBtn = document.getElementById('hvPlay'), playIcon = document.getElementById('hvPlayIcon');
+            var soundBtn = document.getElementById('hvSound'), soundIcon = document.getElementById('hvSoundIcon'), soundLabel = document.getElementById('hvSoundLabel');
+            var end = document.getElementById('hvEnd'), bar = document.getElementById('hvProgress');
+            var PAUSE = 'M7 5h4v14H7zM13 5h4v14h-4z', PLAY = 'M8 5v14l11-7z';
+            function syncPlay() { var p = v.paused; playIcon.setAttribute('d', p ? PLAY : PAUSE); playBtn.setAttribute('aria-label', p ? 'Reproducir video' : 'Pausar video'); }
+            function syncSound() { var m = v.muted; soundIcon.setAttribute('d', m ? 'M22 9l-6 6M16 9l6 6' : 'M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13'); soundLabel.textContent = m ? 'Activar sonido' : 'Silenciar'; soundBtn.setAttribute('aria-label', soundLabel.textContent); }
+            playBtn.addEventListener('click', function () { if (v.paused) { end.classList.remove('show'); v.play(); } else { v.pause(); } });
+            soundBtn.addEventListener('click', function () { v.muted = !v.muted; if (!v.muted && v.paused) { end.classList.remove('show'); v.play(); } syncSound(); });
+            document.getElementById('hvReplay').addEventListener('click', function () { end.classList.remove('show'); v.currentTime = 0; v.play(); });
+            v.addEventListener('play', syncPlay); v.addEventListener('pause', syncPlay);
+            v.addEventListener('timeupdate', function () { if (v.duration) bar.style.width = (v.currentTime / v.duration * 100) + '%'; });
+            v.addEventListener('ended', function () { end.classList.add('show'); syncPlay(); });
+            var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!reduce) {
+                // Reproduce solo cuando el video está a la vista; se pausa si el usuario baja.
+                if ('IntersectionObserver' in window) {
+                    new IntersectionObserver(function (es) {
+                        es.forEach(function (e) {
+                            if (e.isIntersecting && !end.classList.contains('show') && !v.dataset.userPaused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+                            else if (!e.isIntersecting && !v.paused) v.pause();
+                        });
+                    }, { threshold: 0.5 }).observe(v);
+                } else { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+                playBtn.addEventListener('click', function () { if (v.paused) v.dataset.userPaused = '1'; else delete v.dataset.userPaused; });
+            }
+            syncPlay(); syncSound();
+        })();
+        </script>
         <div class="trust-badges">
             <div class="trust-badge">
                 <div class="trust-badge-icon">📊</div>
