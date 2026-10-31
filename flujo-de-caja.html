@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla gratis: Flujo de Caja Mensual en Excel | Data Edge</title>
+    <meta name="description" content="Registra lo que entra y lo que sale cada día y mira mes a mes si te va a faltar caja. Plantilla de Excel gratuita con dashboard.">
+    <meta property="og:title" content="Plantilla gratis: Flujo de Caja Mensual en Excel">
+    <meta property="og:description" content="Vender no basta: necesitas saber cuándo entra tu dinero. Descarga gratis la plantilla Flujo de Caja Mensual.">
+    <meta property="og:image" content="https://dataedgeco.vercel.app/media/dataedge-promo-poster.jpg">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#1c2b44">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="/meta-pixel.js"></script>
+    <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <style>
+        :root {
+            --bg-dark: #1c2b44; --bg-surface: #243356; --accent: #4a8de8; --accent-light: #82b8f8;
+            --gold: #d4a84e; --green: #0ea572; --green-light: #1dc98a; --red: #e06464;
+            --light-bg: #f0f4fb; --text-dark: #1a2235; --text-light: #e8eef8; --muted: #8fa8cc; --gray: #6b7f9e;
+            --border-light: #dde5f0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; color: var(--text-dark); background: var(--light-bg); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+        h1, h2 { font-family: 'Playfair Display', serif; line-height: 1.2; }
+        a { color: inherit; }
+        .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; }
+        header { background: var(--bg-dark); padding: .9rem 0; }
+        header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        header img { height: 32px; display: block; }
+        header a.back { color: var(--muted); text-decoration: none; font-size: .88rem; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: .8rem 1.6rem; border-radius: 10px; font-weight: 700; font-size: 1rem; text-decoration: none; border: 0; cursor: pointer; font-family: inherit; }
+        .btn-green { background: linear-gradient(135deg, var(--green), var(--green-light)); color: #fff; box-shadow: 0 4px 18px rgba(10,143,92,.35); }
+        .btn-ghost { background: transparent; color: var(--text-light); border: 1px solid rgba(255,255,255,.25); }
+        .btn-dark { background: var(--bg-dark); color: #fff; }
+
+        .hero { background: var(--bg-dark); color: var(--text-light); padding: 3.25rem 0 4rem; }
+        .hero .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 2.5rem; align-items: center; }
+        .eyebrow { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--bg-dark); background: var(--gold); padding: .3rem .7rem; border-radius: 999px; margin-bottom: 1rem; }
+        .hero h1 { font-size: 2.5rem; color: #fff; margin-bottom: 1rem; }
+        .hero p.lead { color: var(--muted); font-size: 1.08rem; margin-bottom: 1.6rem; }
+        .hero .ctas { display: flex; flex-wrap: wrap; gap: .75rem; }
+        .hero small { display: block; color: var(--muted); margin-top: .9rem; font-size: .82rem; }
+
+        /* Vista previa ilustrativa del dashboard de la plantilla */
+        .preview { background: #fff; color: var(--text-dark); border-radius: 14px; padding: 1.25rem; box-shadow: 0 16px 48px rgba(0,0,0,.35); }
+        .preview h3 { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--gray); margin-bottom: .9rem; }
+        .kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: .6rem; margin-bottom: 1rem; }
+        .kpi { border: 1px solid var(--border-light); border-radius: 10px; padding: .6rem .75rem; }
+        .kpi span { display: block; font-size: .72rem; color: var(--gray); }
+        .kpi strong { font-size: 1.05rem; }
+        .kpi.in strong { color: var(--green); }
+        .kpi.out strong { color: var(--red); }
+        .bars { display: flex; align-items: flex-end; gap: 6px; height: 90px; border-bottom: 1px solid var(--border-light); padding-bottom: 2px; }
+        .bars div { flex: 1; border-radius: 4px 4px 0 0; background: var(--accent-light); }
+        .bars div.neg { background: #f3b4b4; }
+        .preview .note { font-size: .72rem; color: var(--gray); margin-top: .6rem; }
+
+        section.block { padding: 4rem 0; }
+        section.block h2 { font-size: 2rem; text-align: center; margin-bottom: .6rem; }
+        section.block p.sub { text-align: center; color: var(--gray); max-width: 620px; margin: 0 auto 2.5rem; }
+        .steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; counter-reset: paso; }
+        .steps li { background: #fff; border: 1px solid var(--border-light); border-radius: 14px; padding: 1.25rem 1.1rem; counter-increment: paso; }
+        .steps li::before { content: counter(paso); display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--bg-dark); color: #fff; font-weight: 700; font-size: .9rem; margin-bottom: .75rem; }
+        .steps strong { display: block; margin-bottom: .3rem; }
+        .steps span { color: var(--gray); font-size: .88rem; line-height: 1.5; }
+
+        .compare { background: #fff; }
+        table { width: 100%; max-width: 760px; margin: 0 auto; border-collapse: collapse; font-size: .95rem; }
+        th, td { padding: .75rem .9rem; border-bottom: 1px solid var(--border-light); text-align: left; }
+        th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--gray); }
+        td.c, th.c { text-align: center; width: 110px; }
+        td.yes { color: var(--green); font-weight: 700; }
+        td.no { color: #b9c4d6; }
+        .compare .ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-top: 2rem; }
+        .compare .note { text-align: center; color: var(--gray); font-size: .88rem; margin-top: .9rem; }
+
+        .follow { background: var(--bg-surface); color: var(--text-light); text-align: center; padding: 3rem 0; }
+        .follow h2 { font-size: 1.6rem; color: #fff; margin-bottom: .5rem; }
+        .follow p { color: var(--muted); margin-bottom: 1.25rem; }
+        .social { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; }
+        .social a { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; padding: .55rem 1.1rem; border-radius: 999px; border: 1px solid rgba(255,255,255,.18); color: var(--text-light); text-decoration: none; font-weight: 600; font-size: .9rem; }
+        .social a:hover { background: rgba(255,255,255,.08); }
+        .social svg { width: 18px; height: 18px; fill: currentColor; }
+        footer { background: var(--bg-dark); color: var(--muted); text-align: center; padding: 2rem 1rem; font-size: .85rem; }
+        footer a { color: var(--accent-light); text-decoration: none; }
+
+        @media (max-width: 900px) {
+            .hero { padding: 2.25rem 0 3rem; }
+            .hero .wrap { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2rem; }
+            .steps { grid-template-columns: 1fr 1fr; }
+            section.block h2 { font-size: 1.6rem; }
+        }
+        @media (max-width: 480px) {
+            .hero .ctas .btn { width: 100%; }
+            .steps { grid-template-columns: 1fr; }
+            td.c, th.c { width: 70px; }
+            th, td { padding: .6rem .5rem; font-size: .88rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="wrap">
+            <a href="/" aria-label="Data Edge, ir al inicio"><img src="/logo-data-edge.svg" alt="Data Edge"></a>
+            <a class="back" href="/">Ver todas las plantillas →</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="wrap">
+            <div>
+                <span class="eyebrow">Plantilla gratis · Excel</span>
+                <h1>Vender no basta: necesitas saber cuándo entra tu dinero</h1>
+                <p class="lead">Con la plantilla Flujo de Caja Mensual registras lo que entra y lo que sale cada día, y ves a tiempo si te va a faltar caja.</p>
+                <div class="ctas">
+                    <a class="btn btn-green" id="ctaDescargar" href="/?plantilla=flujo-de-caja">Descargar la plantilla gratis</a>
+                    <a class="btn btn-ghost" href="#como-funciona">Cómo funciona</a>
+                </div>
+                <small>Gratis con tu registro: solo necesitas un correo. Sin tarjeta.</small>
+            </div>
+            <div class="preview" aria-label="Vista ilustrativa del dashboard de la plantilla">
+                <h3>Dashboard · ejemplo</h3>
+                <div class="kpis">
+                    <div class="kpi in"><span>Ingresos del mes</span><strong>$ 8.500.000</strong></div>
+                    <div class="kpi out"><span>Egresos del mes</span><strong>$ 7.200.000</strong></div>
+                    <div class="kpi"><span>Flujo neto</span><strong>$ 1.300.000</strong></div>
+                    <div class="kpi"><span>Saldo final</span><strong>$ 2.300.000</strong></div>
+                </div>
+                <div class="bars" aria-hidden="true">
+                    <div style="height:55%"></div><div style="height:70%"></div><div class="neg" style="height:30%"></div><div style="height:62%"></div><div style="height:80%"></div><div class="neg" style="height:40%"></div><div style="height:66%"></div><div style="height:90%"></div>
+                </div>
+                <p class="note">Valores ilustrativos. La plantilla calcula todo con tus propios movimientos.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="como-funciona">
+        <div class="wrap">
+            <h2>Tu flujo de caja en 4 pasos</h2>
+            <p class="sub">La plantilla trae datos de ejemplo. Reemplázalos por los tuyos y el resto se calcula solo.</p>
+            <ol class="steps">
+                <li><strong>Configura</strong><span>Escribe tu saldo inicial, el mes y el año, y ajusta las categorías de ingresos y egresos a tu negocio.</span></li>
+                <li><strong>Registra movimientos</strong><span>Anota cada ingreso o egreso con su fecha, categoría y descripción. El saldo del día se calcula solo.</span></li>
+                <li><strong>Revisa el dashboard</strong><span>Ingresos y egresos del mes, flujo neto, saldo final y el saldo acumulado día a día.</span></li>
+                <li><strong>Compara mes a mes</strong><span>El resumen del año te muestra en qué meses salió más dinero del que entró.</span></li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="block compare">
+        <div class="wrap">
+            <h2>¿Tu empresa necesita más detalle?</h2>
+            <p class="sub">La versión gratuita te da la estructura para empezar. Si necesitas más, adaptamos la plantilla a la estructura de tu empresa y tú la diligencias con tus datos.</p>
+            <table>
+                <thead><tr><th>Incluye</th><th class="c">Gratis</th><th class="c">Adaptada</th></tr></thead>
+                <tbody>
+                    <tr><td>Registro diario de ingresos y egresos</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+                    <tr><td>Dashboard del mes y saldo acumulado</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+                    <tr><td>Resumen mes a mes del año</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+                    <tr><td>Categorías propias de tu negocio</td><td class="c">Editables</td><td class="c yes">✓ Configuradas</td></tr>
+                    <tr><td>Estructura ajustada a tus centros de costo y reportes</td><td class="c no">—</td><td class="c yes">✓</td></tr>
+                </tbody>
+            </table>
+            <div class="ctas">
+                <a class="btn btn-green" id="ctaDescargar2" href="/?plantilla=flujo-de-caja">Descargar la versión gratis</a>
+                <a class="btn btn-dark" href="/#servicios">Cotizar la adaptación</a>
+            </div>
+            <p class="note">Adaptación desde COP $100.000 según el requerimiento. Incluye el ajuste de la plantilla; no incluye revisión de cifras ni asesoría.</p>
+        </div>
+    </section>
+
+    <section class="follow">
+        <div class="wrap">
+            <h2>Más contenido como este</h2>
+            <p>Publicamos guías prácticas de finanzas y Excel para empresas.</p>
+            <div class="social" id="social"></div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Convertir datos en decisiones y decisiones en resultados.</p>
+        <p>&copy; 2026 Data Edge Consulting · <a href="/">Inicio</a> · <a href="/privacidad.html">Política de privacidad</a></p>
+    </footer>
+
+    <script>
+        var SOCIAL = {
+            youtube:   'https://www.youtube.com/@dataedgeco',
+            instagram: 'https://www.instagram.com/dataedgeconsulting/',
+            facebook:  'https://www.facebook.com/profile.php?id=61594740047208'
+        };
+        var ICONS = {
+            youtube: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>',
+            instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3c1.2-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>',
+            facebook: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.1C24 5.4 18.6 0 12 0S0 5.4 0 12.1c0 6 4.4 11 10.1 11.9v-8.4H7.1v-3.5h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9v2.3h3.3l-.5 3.5h-2.8V24C19.6 23.1 24 18.1 24 12.1z"/></svg>'
+        };
+        var LABELS = { youtube: 'Suscríbete en YouTube', instagram: 'Síguenos en Instagram', facebook: 'Síguenos en Facebook' };
+
+        document.getElementById('social').innerHTML = ['youtube', 'instagram', 'facebook'].filter(function (r) { return SOCIAL[r]; }).map(function (r) {
+            var href = r === 'youtube' ? SOCIAL.youtube + '?sub_confirmation=1' : SOCIAL[r];
+            return '<a href="' + href + '" target="_blank" rel="noopener" data-red="' + r + '">' + ICONS[r] + LABELS[r] + '</a>';
+        }).join('');
+
+        function track(evento, datos) {
+            try { if (window.va) window.va('event', { name: evento, data: datos || {} }); } catch (e) {}
+            try { if (window.dePixel) dePixel(evento, datos || {}, true); } catch (e) {}
+        }
+
+        // Conservar el origen (utm) al pasar a la descarga, para saber qué red generó el registro
+        (function () {
+            var q = new URLSearchParams(window.location.search);
+            ['ctaDescargar', 'ctaDescargar2'].forEach(function (id) {
+                var a = document.getElementById(id);
+                var url = new URL(a.getAttribute('href'), window.location.origin);
+                ['utm_source', 'utm_medium', 'utm_campaign'].forEach(function (k) { if (q.get(k)) url.searchParams.set(k, q.get(k)); });
+                if (!url.searchParams.get('utm_source')) { url.searchParams.set('utm_source', 'landing'); url.searchParams.set('utm_campaign', 'flujo-de-caja'); }
+                a.href = url.pathname + url.search;
+                a.addEventListener('click', function () { track('ClicDescargaLanding', { producto: 'flujo-de-caja' }); });
+            });
+            try {
+                if (q.get('utm_source')) sessionStorage.setItem('dec_origen', [q.get('utm_source'), q.get('utm_medium') || '', q.get('utm_campaign') || ''].join('|'));
+            } catch (e) {}
+        })();
+
+        document.addEventListener('click', function (e) {
+            var a = e.target.closest && e.target.closest('[data-red]');
+            if (a) track('ClicRedSocial', { red: a.getAttribute('data-red'), ubicacion: 'landing-flujo-de-caja' });
+        });
+    </script>
+</body>
+</html>
