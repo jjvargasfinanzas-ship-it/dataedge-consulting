@@ -2232,7 +2232,7 @@
                 <div class="hv-end" id="hvEnd" role="dialog" aria-label="¿Por dónde quieres empezar?">
                     <h3>¿Por dónde quieres empezar?</h3>
                     <div class="hv-end-actions">
-                        <a href="/empresas.html#contacto" class="primary">Agendar diagnóstico</a>
+                        <a href="/empresas.html#contacto" class="primary">Solicitar una conversación</a>
                         <a href="#plantillas" onclick="goToPlantillas(); return false;">Ver plantillas</a>
                         <a href="#simuladores" onclick="scrollToSection('simuladores'); return false;">Probar simuladores</a>
                     </div>
@@ -2571,7 +2571,7 @@
                                 <div class="sim-field"><label>Utilidad Operacional ($)</label><input type="number" id="eva-ebit" value="35000000"></div>
                                 <div class="sim-field"><label>Tasa Impositiva (%)</label><input type="number" id="eva-tax" value="19.23" step="0.01"></div>
                             </div>
-                            <div class="sim-field"><label>Capital Invertido / Total Activo ($)</label><input type="number" id="eva-capital" value="418000000"></div>
+                            <div class="sim-field"><label>Capital invertido: deuda financiera + patrimonio ($)</label><input type="number" id="eva-capital" value="418000000"></div>
                         </div>
 
                         <div style="margin-bottom:1.5rem;">
@@ -2659,8 +2659,8 @@
                                 <div style="font-size:.72rem;color:var(--accent-blue-light);font-weight:600;margin-bottom:.5rem;">📊 Datos Operacionales</div>
                                 <div style="font-size:.78rem;color:#94a3b8;line-height:1.6;">
                                     <b style="color:#cbd5e1;">Utilidad Operacional:</b> También llamada EBIT. Es la ganancia antes de intereses e impuestos. La encuentras en el Estado de Resultados. <span style="color:#c9a84c;">Ej: $35.000.000</span><br><br>
-                                    <b style="color:#cbd5e1;">Tasa Impositiva:</b> La tarifa de renta aplicable a tu empresa. En Colombia puede ser 19%, 33% o 35% según el tipo de contribuyente. <span style="color:#c9a84c;">Ej: 19,23%</span><br><br>
-                                    <b style="color:#cbd5e1;">Capital Invertido:</b> El total de activos que usa la operación. Toma el Total Activo del Balance General. <span style="color:#c9a84c;">Ej: $418.000.000</span>
+                                    <b style="color:#cbd5e1;">Tasa Impositiva:</b> La tarifa general de renta para sociedades en Colombia es 35%; algunos regímenes tienen tarifas especiales (por ejemplo, zonas francas). Si conoces la tasa efectiva de tu empresa, usa esa. <span style="color:#c9a84c;">Ej. de tasa efectiva: 19,23%</span><br><br>
+                                    <b style="color:#cbd5e1;">Capital Invertido:</b> La deuda financiera más el patrimonio, es decir, los recursos por los que la empresa paga un costo. No incluye proveedores ni impuestos por pagar. <span style="color:#c9a84c;">Ej: $45.000.000 de créditos + $373.000.000 de patrimonio = $418.000.000</span>
                                 </div>
                             </div>
 
@@ -2668,7 +2668,7 @@
                                 <div style="font-size:.72rem;color:var(--accent-blue-light);font-weight:600;margin-bottom:.5rem;">🏦 Estructura de Capital</div>
                                 <div style="font-size:.78rem;color:#94a3b8;line-height:1.6;">
                                     <b style="color:#cbd5e1;">Obligaciones financieras:</b> Ingresa cada crédito por separado con su saldo y tasa efectiva anual. El simulador calcula automáticamente la deuda total y el Kd ponderado. No incluyas proveedores ni impuestos por pagar. <span style="color:#c9a84c;">Ej: Davivienda $10M al 23,79% + BBVA $15M al 20,69% + Pichincha $20M al 17,59% → Kd ponderado ≈ 20%</span><br><br>
-                                    <b style="color:#cbd5e1;">Patrimonio:</b> Los fondos propios o capital de los accionistas. Lo encuentras en el pasivo del Balance. <span style="color:#c9a84c;">Ej: $373.000.000</span>
+                                    <b style="color:#cbd5e1;">Patrimonio:</b> Los fondos propios o capital de los accionistas. Lo encuentras en el Balance General, en la sección de patrimonio. <span style="color:#c9a84c;">Ej: $373.000.000</span>
                                 </div>
                             </div>
 
@@ -2676,8 +2676,8 @@
                                 <div style="font-size:.72rem;color:var(--accent-blue-light);font-weight:600;margin-bottom:.5rem;">📈 CAPM — Costo del Equity</div>
                                 <div style="font-size:.78rem;color:#94a3b8;line-height:1.6;">
                                     <b style="color:#cbd5e1;">Beta (β):</b> Mide el riesgo del sector vs el mercado. Beta = 1 es igual al mercado. &gt;1 es más riesgoso. Consulta betas por sector en Damodaran.com. <span style="color:#c9a84c;">Ej: 1,50</span><br><br>
-                                    <b style="color:#cbd5e1;">Rentabilidad del mercado (Rm):</b> El rendimiento histórico del mercado accionario. Para Colombia usa el índice COLCAP o mercados emergentes LATAM (~15-16%). <span style="color:#c9a84c;">Ej: 15,77%</span><br><br>
-                                    <b style="color:#cbd5e1;">Tasa libre de riesgo (Rf):</b> El rendimiento de los TES colombianos a 10 años o los bonos del Tesoro de EE.UU. (~4-5%). <span style="color:#c9a84c;">Ej: 4,41%</span>
+                                    <b style="color:#cbd5e1;">Rentabilidad del mercado (Rm):</b> El rendimiento histórico del mercado accionario. Debe estar en la misma moneda que la tasa libre de riesgo: COLCAP si trabajas en pesos, o un índice como el S&amp;P 500 si trabajas en dólares. <span style="color:#c9a84c;">Ej: 15,77%</span><br><br>
+                                    <b style="color:#cbd5e1;">Tasa libre de riesgo (Rf):</b> En pesos, el rendimiento de los TES a 10 años; en dólares, el de los bonos del Tesoro de EE. UU. a 10 años (en ese caso suma una prima de riesgo país). No mezcles una tasa en dólares con un mercado en pesos. <span style="color:#c9a84c;">Ej: 4,41%</span>
                                 </div>
                             </div>
                         </div>
