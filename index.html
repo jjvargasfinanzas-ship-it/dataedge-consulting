@@ -133,6 +133,8 @@
 
         /* Grupos del menú */
         .nav-links { align-items: center; }
+        .nav-links a.nav-home { display: inline-flex; align-items: center; gap: .35rem; }
+        .mobile-menu .m-home { display: flex; align-items: center; gap: .5rem; padding: .9rem 1.5rem; font-weight: 600; color: var(--text-light, #fff); text-decoration: none; border-bottom: 1px solid var(--border); }
         .nav-group { position: relative; }
         .nav-group-btn { background: none; border: 0; cursor: pointer; font: inherit; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.02em; color: var(--text-light); display: inline-flex; align-items: center; gap: .4rem; padding: .45rem .1rem; white-space: nowrap; }
         .nav-group-biz .nav-group-btn { color: var(--gold); border: 1px solid rgba(212,168,78,.45); border-radius: 999px; padding: .4rem .9rem; }
@@ -2102,6 +2104,7 @@
                 <img src="/logo-data-edge.svg" alt="Data Edge" class="nav-logo">
             </a>
             <ul class="nav-links">
+                <li><a class="nav-home" href="/" aria-label="Ir al inicio"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Inicio</span></a></li>
                 <li class="nav-group">
                     <button type="button" class="nav-group-btn" aria-expanded="false" aria-haspopup="true">Herramientas <span class="caret" aria-hidden="true"></span></button>
                     <div class="nav-drop">
@@ -2148,6 +2151,7 @@
         </div>
         <!-- Mobile Menu -->
         <div class="mobile-menu" id="mobileMenu">
+            <a class="m-home" href="/" aria-label="Ir al inicio"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Inicio</span></a>
             <div class="m-group-label">Herramientas<span>Emprendedores, pymes, estudiantes y directores de área</span></div>
             <ul>
                 <li><a href="#plantillas" onclick="goToPlantillas(); return false;">Plantillas</a></li>

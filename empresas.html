@@ -52,6 +52,9 @@
         .hnav { display: flex; align-items: center; gap: 1.6rem; }
         .hnav a { color: var(--on-dark-muted); text-decoration: none; font-size: .9rem; font-weight: 500; }
         .hnav a:hover { color: #fff; }
+        .hnav a.home { display: inline-flex; align-items: center; gap: .4rem; color: #fff; }
+        .hnav a.home:hover { color: var(--gold, #c9a84c); }
+        @media (max-width: 480px) { .hnav a.home span { display: none; } .hnav { gap: .9rem; } .hnav .btn { white-space: nowrap; padding: .5rem .8rem; font-size: .82rem; } }
         .hnav .btn { min-height: 42px; padding: .55rem 1.1rem; font-size: .88rem; color: var(--navy); }
         @media (max-width: 860px) { .hnav a.opt { display: none; } }
 
@@ -211,6 +214,7 @@
     <div class="wrap">
         <a href="/" aria-label="Data Edge, ir al inicio"><img src="/logo-data-edge.svg" alt="Data Edge"></a>
         <nav class="hnav" aria-label="Secciones">
+            <a class="home" href="/" aria-label="Ir al inicio"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg><span>Inicio</span></a>
             <a class="opt" href="#servicios">Servicios</a>
             <a class="opt" href="#metodo">Método</a>
             <a class="opt" href="/">Plantillas</a>
