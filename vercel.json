@@ -5,8 +5,8 @@
     }
   },
   "redirects": [
-    { "source": "/_privado/:path*", "destination": "/#herramientas", "permanent": false },
-    { "source": "/Plantillas/:path*", "destination": "/#herramientas", "permanent": false },
-    { "source": "/plantillas/:path*", "destination": "/#herramientas", "permanent": false }
+    { "source": "/_privado/:path*", "destination": "/?registro=plantilla#plantillas", "permanent": false },
+    { "source": "/Plantillas/:path*", "destination": "/?registro=plantilla#plantillas", "permanent": false },
+    { "source": "/plantillas/:path*", "destination": "/?registro=plantilla#plantillas", "permanent": false }
   ]
 }

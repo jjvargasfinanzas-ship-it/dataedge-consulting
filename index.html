@@ -1221,6 +1221,12 @@
             border: 1px solid #bbf7d0;
         }
 
+        .form-message.info {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+
         /* Download/Payment Modals */
         .download-modal-body { text-align: center; }
         .download-modal-body h3 { color: var(--text-dark); margin-bottom: 1rem; }
@@ -3189,9 +3195,8 @@
             }
 
             if (!currentUser) {
-                // Guardar la intención para descargarla apenas inicie sesión o confirme su correo
-                try { localStorage.setItem('dec_pending_tpl', name); } catch (e) {}
-                openAuth('register');
+                // Guardar la intención y explicar por qué se pide registro
+                pedirRegistroParaDescargar(name);
                 return;
             }
 
@@ -3251,9 +3256,8 @@
                 return;
             }
             if (!currentUser) {
-                try { localStorage.setItem('dec_pending_tpl', currentTemplateName); } catch (e) {}
                 closeModal('downloadModal');
-                openAuth('register');
+                pedirRegistroParaDescargar(currentTemplateName);
                 return;
             }
             const btn = document.querySelector('#downloadModal .download-btn');
@@ -3262,11 +3266,11 @@
             try {
                 const { data: sess } = await supabaseClient.auth.getSession();
                 const token = sess && sess.session ? sess.session.access_token : null;
-                if (!token) throw new Error('Sesión expirada. Vuelve a iniciar sesión.');
+                if (!token) { closeModal('downloadModal'); openAuth('login', 'Tu sesión expiró. Inicia sesión para descargar «' + currentTemplateName + '».'); return; }
                 const resp = await fetch('/api/descargar?f=' + encodeURIComponent(currentTemplateFile), {
                     headers: { Authorization: 'Bearer ' + token }
                 });
-                if (resp.status === 401) throw new Error('Debes iniciar sesión para descargar.');
+                if (resp.status === 401) { closeModal('downloadModal'); openAuth('login', 'Tu sesión expiró. Inicia sesión para descargar «' + currentTemplateName + '».'); return; }
                 if (!resp.ok) throw new Error('No se pudo descargar (' + resp.status + ').');
                 const blob = await resp.blob();
                 const url = URL.createObjectURL(blob);
@@ -3300,7 +3304,7 @@
             const originalText = btn ? btn.textContent : '';
             if (btn) { btn.disabled = true; btn.textContent = 'Enviando...'; }
 
-            const fileUrl = window.location.origin + '/?plantilla=' + encodeURIComponent(currentTemplateName) + '#herramientas';
+            const fileUrl = window.location.origin + '/?plantilla=' + encodeURIComponent(currentTemplateName) + '#plantillas';
             const clientName = currentUser.user_metadata?.name || 'Cliente';
 
             try {
@@ -3431,6 +3435,18 @@
             updateSimuladores();
             renderVideos();
             if (currentUser) resumePendingDownload();
+            else avisarRegistroSiVieneDeEnlace();
+        }
+
+        // Visitante que llegó por un enlace directo a una plantilla (correo o enlace viejo) sin sesión
+        function avisarRegistroSiVieneDeEnlace() {
+            var aviso = null;
+            try { aviso = sessionStorage.getItem('dec_aviso_registro'); sessionStorage.removeItem('dec_aviso_registro'); } catch (e) {}
+            if (!aviso) return;
+            var nombre = (aviso !== '1' && templates.some(function (t) { return t.name === aviso; })) ? aviso : null;
+            var sec = document.getElementById('herramientas') || document.getElementById('plantillas');
+            if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(function () { pedirRegistroParaDescargar(nombre); }, 600);
         }
 
         function resumePendingDownload() {
@@ -3630,9 +3646,24 @@
         }
 
         // MODAL FUNCTIONS
-        function openAuth(tab) {
+        function openAuth(tab, mensaje) {
             switchAuthTab(tab);
+            ['login', 'register'].forEach(function (f) {
+                var el = document.getElementById(f + 'Message');
+                if (!el) return;
+                if (mensaje) { el.textContent = mensaje; el.className = 'form-message info'; }
+                else if (el.classList.contains('info')) { el.textContent = ''; el.className = ''; }
+            });
             openModal('authModal');
+        }
+
+        // Mensaje estándar cuando alguien intenta descargar sin estar registrado
+        function pedirRegistroParaDescargar(nombrePlantilla) {
+            try { if (nombrePlantilla) localStorage.setItem('dec_pending_tpl', nombrePlantilla); } catch (e) {}
+            var msg = nombrePlantilla
+                ? 'Para descargar «' + nombrePlantilla + '» solo necesitas registrarte. Es gratis y la descarga empieza al terminar.'
+                : 'Las plantillas son gratis: regístrate (o inicia sesión) para descargarlas.';
+            openAuth('register', msg);
         }
 
         function switchAuthTab(tab) {
@@ -3672,6 +3703,7 @@
                 var q = new URLSearchParams(window.location.search);
                 var tplLink = q.get('plantilla');
                 if (tplLink) localStorage.setItem('dec_pending_tpl', tplLink);
+                if (tplLink || q.get('registro') === 'plantilla') sessionStorage.setItem('dec_aviso_registro', tplLink || '1');
                 var src = q.get('utm_source');
                 if (src) sessionStorage.setItem('dec_origen', [src, q.get('utm_medium') || '', q.get('utm_campaign') || ''].join('|'));
             } catch (e) {}
