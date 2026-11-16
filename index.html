@@ -3123,10 +3123,10 @@
         // included: true  = gratis con registro
         // included: false = PRO (pago único). En "wompi" pega el link de pago de Wompi de esa plantilla.
         const templates = [
-            { slug: 'flujo-de-caja', name: 'Flujo de Caja Mensual', icon: '📊', desc: 'Controla tu cash flow día a día', badge: 'Gratis', included: true, file: 'Plantillas/Fp_Flujo_de_caja_mensual.xlsx' },
-            { slug: 'finanzas-personales', name: 'Finanzas Personales', icon: '💰', desc: 'Organiza tus gastos e ingresos', badge: 'Gratis', included: true, file: 'Plantillas/DataEdge_Finanzas_Personales.xlsx' },
-            { slug: 'amortizacion', name: 'Tabla de Amortización', icon: '📉', desc: 'Calcula préstamos con precisión', badge: 'Gratis', included: true, file: 'Plantillas/DataEdge_Tabla_de_Amortizacion.xlsx' },
-            { slug: 'presupuesto-2027', name: 'Presupuesto 2027 + Cierre 2026', icon: '📋', desc: 'Proyecta tu cierre 2026 y arma tu presupuesto 2027 mes a mes', badge: 'Gratis', included: true, file: 'Plantillas/DataEdge_Presupuesto_2027_Cierre_2026.xlsx' },
+            { slug: 'flujo-de-caja', name: 'Flujo de Caja Mensual', icon: '📊', desc: 'Controla tu cash flow día a día', badge: 'Gratis', included: true, file: 'flujo-de-caja' },
+            { slug: 'finanzas-personales', name: 'Finanzas Personales', icon: '💰', desc: 'Organiza tus gastos e ingresos', badge: 'Gratis', included: true, file: 'finanzas-personales' },
+            { slug: 'amortizacion', name: 'Tabla de Amortización', icon: '📉', desc: 'Calcula préstamos con precisión', badge: 'Gratis', included: true, file: 'amortizacion' },
+            { slug: 'presupuesto-2027', name: 'Presupuesto 2027 + Cierre 2026', icon: '📋', desc: 'Proyecta tu cierre 2026 y arma tu presupuesto 2027 mes a mes', badge: 'Gratis', included: true, file: 'presupuesto-2027' },
             { slug: 'valoracion-dcf', name: 'Valoración de Empresas DCF', icon: '🏢', desc: 'Plantilla estándar para aprender y practicar la valoración por flujo de caja descontado', price: 'COP $80.000', badge: 'PRO', included: false, wompi: WOMPI_PRO,
               includes: ['Proyección de estados financieros a 5 años', 'Cálculo de WACC y flujo de caja libre', 'Valor terminal y valor de la empresa', 'Análisis de sensibilidad', 'Guía de uso paso a paso'] },
             { slug: 'presupuesto-anual-pl', name: 'Presupuesto Anual + P&L', icon: '📋', desc: 'Plantilla estándar para armar tu presupuesto anual y tu estado de resultados', price: 'COP $80.000', badge: 'PRO', included: false, wompi: WOMPI_PRO,
@@ -3242,21 +3242,50 @@
         }
 
         // DOWNLOAD TEMPLATE
-        function downloadTemplate() {
+        // Las plantillas ya no están en una ruta pública: se piden a /api/descargar
+        // con el token de sesión. Sin sesión válida el servidor responde 401.
+        async function downloadTemplate() {
             if (!currentTemplateFile) {
                 alert('Esta plantilla estará disponible muy pronto. ¡Gracias por tu paciencia!');
                 closeModal('downloadModal');
                 return;
             }
-            const link = document.createElement('a');
-            link.href = currentTemplateFile;
-            link.download = currentTemplateName.replace(/\s+/g, '_') + '.xlsx';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            dePixel('DescargaPlantilla', { content_name: currentTemplateName }, true);
-            showMessage('template', `✓ Descargando ${currentTemplateName}...`, 'success');
-            closeModal('downloadModal');
+            if (!currentUser) {
+                try { localStorage.setItem('dec_pending_tpl', currentTemplateName); } catch (e) {}
+                closeModal('downloadModal');
+                openAuth('register');
+                return;
+            }
+            const btn = document.querySelector('#downloadModal .download-btn');
+            const originalText = btn ? btn.textContent : '';
+            if (btn) { btn.disabled = true; btn.textContent = 'Preparando...'; }
+            try {
+                const { data: sess } = await supabaseClient.auth.getSession();
+                const token = sess && sess.session ? sess.session.access_token : null;
+                if (!token) throw new Error('Sesión expirada. Vuelve a iniciar sesión.');
+                const resp = await fetch('/api/descargar?f=' + encodeURIComponent(currentTemplateFile), {
+                    headers: { Authorization: 'Bearer ' + token }
+                });
+                if (resp.status === 401) throw new Error('Debes iniciar sesión para descargar.');
+                if (!resp.ok) throw new Error('No se pudo descargar (' + resp.status + ').');
+                const blob = await resp.blob();
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = currentTemplateName.replace(/\s+/g, '_') + '.xlsx';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                setTimeout(function () { URL.revokeObjectURL(url); }, 10000);
+                dePixel('DescargaPlantilla', { content_name: currentTemplateName }, true);
+                showMessage('template', `✓ Descargando ${currentTemplateName}...`, 'success');
+                closeModal('downloadModal');
+            } catch (e) {
+                console.error('Error descargando plantilla', e);
+                alert(e.message || 'No se pudo descargar la plantilla.');
+            } finally {
+                if (btn) { btn.disabled = false; btn.textContent = originalText; }
+            }
         }
 
         // SEND VIA EMAIL
@@ -3271,7 +3300,7 @@
             const originalText = btn ? btn.textContent : '';
             if (btn) { btn.disabled = true; btn.textContent = 'Enviando...'; }
 
-            const fileUrl = window.location.origin + '/' + currentTemplateFile;
+            const fileUrl = window.location.origin + '/?plantilla=' + encodeURIComponent(currentTemplateName) + '#herramientas';
             const clientName = currentUser.user_metadata?.name || 'Cliente';
 
             try {
@@ -3641,6 +3670,8 @@
         (function guardarOrigen() {
             try {
                 var q = new URLSearchParams(window.location.search);
+                var tplLink = q.get('plantilla');
+                if (tplLink) localStorage.setItem('dec_pending_tpl', tplLink);
                 var src = q.get('utm_source');
                 if (src) sessionStorage.setItem('dec_origen', [src, q.get('utm_medium') || '', q.get('utm_campaign') || ''].join('|'));
             } catch (e) {}

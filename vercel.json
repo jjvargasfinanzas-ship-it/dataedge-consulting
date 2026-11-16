@@ -1,0 +1,12 @@
+{
+  "functions": {
+    "api/descargar.js": {
+      "includeFiles": "_privado/plantillas/**"
+    }
+  },
+  "redirects": [
+    { "source": "/_privado/:path*", "destination": "/#herramientas", "permanent": false },
+    { "source": "/Plantillas/:path*", "destination": "/#herramientas", "permanent": false },
+    { "source": "/plantillas/:path*", "destination": "/#herramientas", "permanent": false }
+  ]
+}
